@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../services/authentication/firebaseConfig";
@@ -7,7 +7,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { object, string } from "yup";
 
-import "./styles.css";
+import {
+  FooterFormContainer,
+  InputContainer,
+  LinkContainer,
+  LoginContainer,
+} from "./styles";
 
 type TypeFormData = {
   email: string;
@@ -51,14 +56,14 @@ export function Login() {
   }
 
   return (
-    <div className="container">
+    <LoginContainer>
       <header className="header">
         <span>Por favor digite suas informações de login</span>
       </header>
 
       <form>
-        <div className="inputContainer">
-          <label htmlFor="email">E-mail</label>
+        <InputContainer>
+          <label htmlFor="email">E-mail:</label>
           <input
             type="email"
             id="email"
@@ -66,10 +71,10 @@ export function Login() {
             {...register("email")}
           />
           <span className="error">{errors?.email?.message}</span>
-        </div>
+        </InputContainer>
 
-        <div className="inputContainer">
-          <label htmlFor="password">Senha</label>
+        <InputContainer>
+          <label htmlFor="password">Senha:</label>
           <input
             type="password"
             id="password"
@@ -77,7 +82,7 @@ export function Login() {
             {...register("password")}
           />
           <span className="error">{errors?.password?.message}</span>
-        </div>
+        </InputContainer>
 
         <button
           className="button"
@@ -85,11 +90,11 @@ export function Login() {
         >
           Entrar
         </button>
-        <div className="footer">
+        <FooterFormContainer>
           <p>Você não tem uma conta?</p>
-          <Link to="/register">Crie a sua conta aqui</Link>
-        </div>
+          <LinkContainer to="/register">Crie a sua conta aqui</LinkContainer>
+        </FooterFormContainer>
       </form>
-    </div>
+    </LoginContainer>
   );
 }
