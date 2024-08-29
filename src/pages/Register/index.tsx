@@ -1,4 +1,3 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 
@@ -7,7 +6,12 @@ import { auth } from "../../services/authentication/firebaseConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { object, string } from "yup";
 
-import "./styles.css";
+import {
+  FooterFormContainer,
+  InputContainer,
+  LinkContainer,
+  AuthContainer,
+} from "../Login/styles";
 
 type TypeFormData = {
   email: string;
@@ -17,6 +21,7 @@ type TypeFormData = {
 const schema = object({
   email: string()
     .required("Campo Obrigatório.")
+    .email("Por favor, insira um endereço de e-mail válido.")
     .min(3, "É necessário pelo menos 3 caracteres."),
   password: string()
     .required("Campo Obrigatório.")
@@ -32,28 +37,21 @@ export function Register() {
     resolver: yupResolver(schema),
   });
 
-  const navigate = useNavigate();
-
-  const [createUserWithEmailAndPassword, loading] =
+  const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
 
-  const handleRegister = (data: TypeFormData) => {
-    createUserWithEmailAndPassword(data.email, data.password);
+  const handleRegister = async (data: TypeFormData) => {
+    await createUserWithEmailAndPassword(data.email, data.password);
   };
 
-  if (loading) {
-    navigate("/");
-    return alert("Usuário cadastrado com sucesso!!");
-  }
-
   return (
-    <div className="container">
+    <AuthContainer>
       <header className="header">
         <span>Por favor digite suas informações de cadastro</span>
       </header>
 
-      <form>
-        <div className="inputContainer">
+      <form onSubmit={handleSubmit(handleRegister)} noValidate>
+        <InputContainer>
           <label htmlFor="email">E-mail</label>
           <input
             type="text"
@@ -62,9 +60,9 @@ export function Register() {
             {...register("email")}
           />
           <span className="error">{errors?.email?.message}</span>
-        </div>
+        </InputContainer>
 
-        <div className="inputContainer">
+        <InputContainer>
           <label htmlFor="password">Senha</label>
           <input
             type="password"
@@ -73,21 +71,22 @@ export function Register() {
             {...register("password")}
           />
           <span className="error">{errors?.password?.message}</span>
-        </div>
+        </InputContainer>
 
-        <button
-          onClick={handleSubmit(handleRegister, (errors) =>
-            console.log(errors)
-          )}
-          className="button"
-        >
-          Cadastrar
+        {error && <span>Usuário já existe</span>}
+        {!error && user && (
+          <span style={{ color: "green" }}>Usuário Cadastrado com sucesso</span>
+        )}
+
+        <button type="submit" disabled={loading}>
+          {loading ? "Carregando..." : "Cadastrar"}
         </button>
-        <div className="footer">
+
+        <FooterFormContainer>
           <p>Você já tem uma conta?</p>
-          <Link to="/">Acesse sua conta aqui</Link>
-        </div>
+          <LinkContainer to="/">Acesse sua conta aqui</LinkContainer>
+        </FooterFormContainer>
       </form>
-    </div>
+    </AuthContainer>
   );
 }

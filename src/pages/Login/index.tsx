@@ -11,7 +11,7 @@ import {
   FooterFormContainer,
   InputContainer,
   LinkContainer,
-  LoginContainer,
+  AuthContainer,
 } from "./styles";
 
 type TypeFormData = {
@@ -22,6 +22,7 @@ type TypeFormData = {
 const schema = object({
   email: string()
     .required("Campo Obrigatório.")
+    .email("Por favor, insira um endereço de e-mail válido.")
     .min(3, "É necessário pelo menos 3 caracteres."),
   password: string()
     .required("Campo Obrigatório.")
@@ -39,15 +40,15 @@ export function Login() {
 
   const navigate = useNavigate();
 
-  const [signInWithEmailAndPassword, user, loading] =
+  const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-  const handleSignIn = (data: TypeFormData) => {
-    signInWithEmailAndPassword(data.email, data.password);
+  const handleSignIn = async (data: TypeFormData) => {
+    await signInWithEmailAndPassword(data.email, data.password);
   };
 
-  if (loading) {
-    return <p>carregando...</p>;
+  if (error) {
+    console.log(error);
   }
 
   if (user) {
@@ -56,12 +57,12 @@ export function Login() {
   }
 
   return (
-    <LoginContainer>
-      <header className="header">
+    <AuthContainer>
+      <header>
         <span>Por favor digite suas informações de login</span>
       </header>
 
-      <form>
+      <form onSubmit={handleSubmit(handleSignIn)} noValidate>
         <InputContainer>
           <label htmlFor="email">E-mail:</label>
           <input
@@ -70,7 +71,7 @@ export function Login() {
             placeholder="exemplo@gmail.com"
             {...register("email")}
           />
-          <span className="error">{errors?.email?.message}</span>
+          <span>{errors?.email?.message}</span>
         </InputContainer>
 
         <InputContainer>
@@ -81,20 +82,20 @@ export function Login() {
             placeholder="********************"
             {...register("password")}
           />
-          <span className="error">{errors?.password?.message}</span>
+          <span>{errors?.password?.message}</span>
         </InputContainer>
 
-        <button
-          className="button"
-          onClick={handleSubmit(handleSignIn, (errors) => console.log(errors))}
-        >
-          Entrar
+        {error && <span>Usuário ou senha incorreta!</span>}
+
+        <button type="submit" disabled={loading}>
+          {loading ? "Carregando..." : "Entrar"}
         </button>
+
         <FooterFormContainer>
           <p>Você não tem uma conta?</p>
           <LinkContainer to="/register">Crie a sua conta aqui</LinkContainer>
         </FooterFormContainer>
       </form>
-    </LoginContainer>
+    </AuthContainer>
   );
 }

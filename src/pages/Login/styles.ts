@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const LoginContainer = styled.div`
+export const AuthContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
@@ -19,6 +19,10 @@ export const LoginContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  form span {
+    color: ${(props) => props.theme["red-400"]};
   }
 
   form button {
