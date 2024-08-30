@@ -1,50 +1,67 @@
-# React + TypeScript + Vite
+# Kanban Board
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<h4 align="center">Web Application to manage tasks.</h4>
 
-Currently, two official plugins are available:
+<p align="center">
+  <a href="#how-to-use">How To Use</a> •
+  <a href="#license">License</a>
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<h1 align="center">
+    <img src="./public/assets/kanban-board.png" alt="Markdownify" width="800">
+</h1>
 
-## Expanding the ESLint configuration
+## How To Use
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/package-manager) installed on your computer.
 
-- Configure the top-level `parserOptions` property like this:
+After, from your command line:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+# Clone this repository
+$ git clone https://github.com/thalissoncastrog/kanban-board.git
+
+# Go into the repository
+$ cd kanban-board
+
+# Install dependencies
+$ npm install
+
+# Run the app
+$ npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+> **Note**
+> After run each command above, go to a web browser and access this url: http://localhost:[port].
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+<h4>- For a better experience, use Docker:</h4>
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+> **Note**:
+> Install docker according your operating system [Docker Instalation](https://docs.docker.com/engine/install/).
+
+```bash
+# Clone this repository
+$ git clone https://github.com/thalissoncastrog/erp-system-api.git
+
+# Go into the repository
+$ cd erp-system-api
+
+# Do the next commands as root user
+$ sudo su
+
+#Run the services: sql server + .NET API
+$ docker-compose up -d
 ```
+
+> **Note**
+> After run each command above, go to a web browser and access this url: http://localhost:8080/swagger.
+
+## License
+
+MIT
+
+---
+
+> Instagram [@thalissoncastrog](https://www.instagram.com/thalissoncastrog/) &nbsp;&middot;&nbsp;
+> GitHub [@thalissoncastrog](https://github.com/thalissoncastrog) &nbsp;&middot;&nbsp;
+> Email [thalisson.adao@gmail.com](mailto:thalisson.adao@gmail.com)
