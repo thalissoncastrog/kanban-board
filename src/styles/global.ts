@@ -17,7 +17,20 @@ export const GlobalStyle = createGlobalStyle`
     body, input, textarea, button, header{
         font-family: 'Roboto', sans-serif;
         font-weight: 400;
-            font-size: 1rem;        
+        font-size: 1rem;        
     }
 
+    @media (max-width: 768px) {
+        html {
+            font-size: 87.5%;
+            
+        }
+
+
+
+        div{
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+    }
 `;

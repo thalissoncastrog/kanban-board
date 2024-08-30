@@ -91,8 +91,12 @@ import KanbanBoard, { Card, Column } from "react-custom-kanban-board";
 // );
 
 const columns: Column[] = [
-  { title: "To Do", key: "todo", color: "#BDBDCD" },
-  { title: "Doing", key: "doing", color: "#FDDDE3" },
+  {
+    title: "To-Do",
+    key: "todo",
+    color: "#BF616A",
+  },
+  { title: "Doing", key: "doing", color: "#FDE68A" },
   { title: "Done", key: "done", color: "#71C781" },
 ];
 
