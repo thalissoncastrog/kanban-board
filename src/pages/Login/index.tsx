@@ -47,10 +47,6 @@ export function Login() {
     await signInWithEmailAndPassword(data.email, data.password);
   };
 
-  if (error) {
-    console.log(error);
-  }
-
   if (user) {
     navigate("/home");
     return null;
